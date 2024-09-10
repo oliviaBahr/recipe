@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Dark Theme Recipe Extractor</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.4/axios.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #1a1a1a;
+            color: #f0f0f0;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #333;
+            color: #f0f0f0;
+            border: 1px solid #555;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        #result {
+            white-space: pre-wrap;
+            background-color: #2a2a2a;
+            padding: 15px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Secure Dark Theme Recipe Extractor</h1>
+    <input type="text" id="recipeUrl" placeholder="Enter recipe URL">
+    <button onclick="extractRecipe()">Extract Recipe</button>
+    <div id="result"></div>
+
+    <script>
+        async function extractRecipe() {
+            const url = document.getElementById('recipeUrl').value;
+            const resultDiv = document.getElementById('result');
+            resultDiv.textContent = 'Loading...';
+
+            try {
+                // Call our Netlify Function
+                const response = await axios.post('/.netlify/functions/extractRecipe', { url });
+                resultDiv.textContent = response.data;
+            } catch (error) {
+                resultDiv.textContent = `Error: ${error.message}`;
+            }
+        }
+    </script>
+</body>
+
+</html>
