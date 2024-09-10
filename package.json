@@ -1,0 +1,23 @@
+{
+  "name": "recipe-extractor",
+  "version": "1.0.0",
+  "description": "A great app",
+  "main": "index.html",
+  "scripts": {
+    "start": "netlify dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oliviaBahr/recipe.git"
+  },
+  "author": "Olivia Bahr",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/oliviaBahr/recipe/issues"
+  },
+  "homepage": "https://recipewrapper.netlify.app/",
+  "dependencies": {
+    "axios": "^1.7.7"
+  }
+}
