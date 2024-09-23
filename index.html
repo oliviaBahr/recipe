@@ -50,16 +50,20 @@
 
     <script>
         async function extractRecipe() {
-            const url = document.getElementById('recipeUrl').value;
-            const resultDiv = document.getElementById('result');
-            resultDiv.textContent = 'Loading...';
+            const url = document.getElementById("recipeUrl").value;
+            const resultDiv = document.getElementById("result");
+            resultDiv.innerHTML = ""; // Clear previous result
 
             try {
-                // Call our Netlify Function
-                const response = await axios.post('/.netlify/functions/extractRecipe', { url });
-                resultDiv.textContent = response.data;
+                console.log("Calling Netlify function");
+                const response = await axios.post("/.netlify/functions/extractRecipe", { url });
+
+                console.log("Response received");
+                const recipe = response.data;
+                resultDiv.innerHTML = recipe;
             } catch (error) {
-                resultDiv.textContent = `Error: ${error.message}`;
+                console.error("Error:", error);
+                resultDiv.innerHTML = "Failed to extract recipe";
             }
         }
     </script>
