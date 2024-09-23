@@ -7,6 +7,8 @@ const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
 });
 
+console.log(process.env.ANTHROPIC_API_KEY);
+
 const SYSTEM_PROMPT = `You are an expert chef and recipe writer named recipe-ai that extracts recipes from text and formats them in markdown.
   ONLY include the recipe. Do not include ads, prefaces, media, stories, or extraneous content.
   Instruction steps should generally be breif, but do not be afraid to use multiple sentences if needed.
@@ -37,11 +39,21 @@ export async function handler(event, context) {
   }
 
   const { url } = JSON.parse(event.body);
+  let response;
+  
+  try {
+    response = await axios.get(url);
+  } catch (error) {
+    console.error("Error fetching URL:", error);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: "Failed to fetch recipe from URL" }),
+    };
+  }
+
   console.log("Extracting recipe from URL:", url); // Log the URL
 
   try {
-    // Fetch HTML content
-    const response = await axios.get(url);
     const html = response.data;
 
     console.log("Cleaning content");
