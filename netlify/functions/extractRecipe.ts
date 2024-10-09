@@ -47,7 +47,7 @@ export async function handler(event, context) {
     console.error("Error fetching URL:", error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: "Failed to fetch recipe from URL" }),
+      body: JSON.stringify({ error: "Failed to fetch recipe from URL. Please enter a valid URL and try again." }),
     };
   }
 
